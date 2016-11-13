@@ -1,6 +1,8 @@
 package com.sandlex.running.jd;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public class Activity {
         this.source = source;
     }
 
-    void rebuild() {
+    Collection<String> rebuild() {
         schema = new ArrayList<String>();
 
         String[] parts = source.split("\\+");
@@ -36,11 +38,11 @@ public class Activity {
             }
         }
 
-        System.out.println(schema);
+        return Collections.unmodifiableCollection(schema);
     }
 
 
-    Target calculate() {
+    public Target calculate() {
         Target target = new Target();
 
 

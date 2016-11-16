@@ -43,8 +43,12 @@ public class Activity {
 
 
     public Target calculate() {
-        Target target = new Target();
+        rebuild();
 
+        Target target = new Target();
+        for (String str : schema) {
+            target.addChild(new Target(str));
+        }
 
         return target;
     }

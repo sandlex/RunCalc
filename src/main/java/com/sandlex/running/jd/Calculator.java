@@ -7,7 +7,6 @@ public class Calculator {
 
     public static Target getEstimation(String schema) {
         Activity activity = new Activity(schema);
-        activity.rebuild();
         return activity.calculate();
     }
 

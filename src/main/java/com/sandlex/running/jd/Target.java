@@ -1,5 +1,7 @@
 package com.sandlex.running.jd;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -7,15 +9,24 @@ import java.util.Objects;
  */
 public class Target {
 
-    private int distance;
+    private List<Target> children;
+    private float distance;
     private int time;
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public Target() {
+        this.children = new ArrayList<Target>();
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public Target(String str) {
+        if (str.contains(" min ")) {
+            time = Integer.valueOf(str.substring(0, str.indexOf(" min ")));
+            distance = time * Pace.valueOf(str.substring(str.indexOf(" min ") + 5, str.length() - 1)).getPace();
+        }
+    }
+
+    public void addChild(Target child) {
+        distance += child.distance;
+        time += child.time;
     }
 
     @Override
@@ -39,4 +50,5 @@ public class Target {
     public int hashCode() {
         return Objects.hash(distance, time);
     }
+
 }

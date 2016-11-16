@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public class CalculatorTest {
 
-    public static final String SCHEMA1 = "2E + 3 x 1T w/2 min rests + 3 x 3 min H w/2 min jg + 4 x 200 R w/200 jg + 1E";
+    public static final String SCHEMA1 = "2E + 3 x 1T w/2 min rest + 3 x 3 min H w/2 min jg + 4 x 200 R w/200 jg + 1E";
     public static final String SCHEMA2 = "L = lesser of 15 miles (24 km) & 100 min";
     public static final String SCHEMA3 = "30 min E + 9M";
     public static final String SCHEMA4 = "2E + 5M + 1E + 4M + 2E";

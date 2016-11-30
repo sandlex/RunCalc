@@ -1,2 +1,1 @@
-# jackdaniels
-It has nothing to do with whiskey. But it does have with running
+[![Build Status](https://travis-ci.org/sandlex/jackdaniels.svg?branch=master)](https://travis-ci.org/sandlex/jackdaniels)

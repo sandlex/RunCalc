@@ -30,14 +30,14 @@ public class Activity {
     }
 
     SortedMap<String, Integer> rebuildPaces() {
-        Comparator<String> lengthComparator = new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return ((Integer) o2.length()).compareTo(o1.length());
-            }
-        };
+//        Comparator<String> lengthComparator = new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                return ((Integer) o2.length()).compareTo(o1.length());
+//            }
+//        };
 
-        paces = new TreeMap<String, Integer>(lengthComparator);
+        paces = new TreeMap<String, Integer>(/*lengthComparator*/);
         String[] parts = pacesCfg.split(",");
         for (String part : parts) {
             if (!part.contains("=")) {

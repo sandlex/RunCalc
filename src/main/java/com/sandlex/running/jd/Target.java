@@ -1,17 +1,17 @@
 package com.sandlex.running.jd;
 
-import java.util.SortedMap;
+import java.util.List;
 
 /**
  * author: Alexey Peskov
  */
 public class Target {
 
-    private SortedMap<String, Integer> paces;
+    private List<Pace> paces;
     private float distance;
     private int time;
 
-    public Target(SortedMap<String, Integer> paces) {
+    public Target(List<Pace> paces) {
         this.paces = paces;
     }
 

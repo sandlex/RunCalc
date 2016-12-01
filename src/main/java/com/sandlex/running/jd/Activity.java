@@ -9,7 +9,7 @@ public class Activity {
 
     private final String pacesCfg;
     private final String schemaCfg;
-    private SortedMap<String, Integer> paces;
+    private List<Pace> paces;
     private List<String> schema;
 
     public Activity(String pacesCfg, String schemaCfg) {
@@ -29,25 +29,26 @@ public class Activity {
         return target;
     }
 
-    SortedMap<String, Integer> rebuildPaces() {
-//        Comparator<String> lengthComparator = new Comparator<String>() {
-//            @Override
-//            public int compare(String o1, String o2) {
-//                return ((Integer) o2.length()).compareTo(o1.length());
-//            }
-//        };
-
-        paces = new TreeMap<String, Integer>(/*lengthComparator*/);
+    List<Pace> rebuildPaces() {
+        paces = new ArrayList<Pace>();
         String[] parts = pacesCfg.split(",");
         for (String part : parts) {
             if (!part.contains("=")) {
                 throw new IllegalArgumentException("Cannot parse pace: " + part);
             }
             String[] pace = part.split("=");
-            paces.put(pace[0], getValueInSeconds(pace[1]));
+            paces.add(new Pace(pace[0], getValueInSeconds(pace[1])));
         }
 
-        return Collections.unmodifiableSortedMap(paces);
+        Comparator<Pace> lengthComparator = new Comparator<Pace>() {
+            @Override
+            public int compare(Pace p1, Pace p2) {
+                return ((Integer) p2.getName().length()).compareTo(p1.getName().length());
+            }
+        };
+        Collections.sort(paces, lengthComparator);
+
+        return Collections.unmodifiableList(paces);
     }
 
     Collection<String> rebuildSchema() {

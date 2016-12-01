@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
@@ -53,22 +54,22 @@ public class CalculatorTest {
     @Test
     public void testRebuildPacesSize() {
         Activity activity = new Activity(PACES, SCHEMA1);
-        SortedMap<String, Integer> paces = activity.rebuildPaces();
+        List<Pace> paces = activity.rebuildPaces();
         Assert.assertEquals(9, paces.size());
     }
 
-//    @Test
+    @Test
     public void testRebuildPacesOrder() {
         Activity activity = new Activity(PACES, SCHEMA1);
-        SortedMap<String, Integer> paces = activity.rebuildPaces();
-        Assert.assertEquals("rest", paces.firstKey());
+        List<Pace> paces = activity.rebuildPaces();
+        Assert.assertEquals("rest", paces.get(0).getName());
     }
 
     @Test
     public void testRebuildPacesValueInSeconds() {
         Activity activity = new Activity(PACES, SCHEMA1);
-        Map<String, Integer> paces = activity.rebuildPaces();
-        Assert.assertEquals(300, paces.get("jg").intValue());
+        List<Pace> paces = activity.rebuildPaces();
+        Assert.assertEquals(320, paces.get(0).getTime());
     }
 
     @Test

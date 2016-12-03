@@ -30,6 +30,11 @@ public class Target {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    @Override
+    public String toString() {
+        return String.format("Estimated distance - %.2f km, time - %s", getDistance(), getTime());
+    }
+
     void addPhase(String phase) {
         if (phase.contains("lesser of")) {
             Pace pace = getPace(phase.substring(0, phase.indexOf("=")).trim());

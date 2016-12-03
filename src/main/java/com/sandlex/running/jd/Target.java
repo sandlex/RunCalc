@@ -31,7 +31,26 @@ public class Target {
     }
 
     void addPhase(String phase) {
-        if (phase.contains("min")) {
+        if (phase.contains("lesser of")) {
+            Pace pace = getPace(phase.substring(0, phase.indexOf("=")).trim());
+            String distanceStr = phase.substring(phase.indexOf("(") + 1, phase.indexOf("km")).trim();
+            int meters;
+            try {
+                meters = Integer.valueOf(distanceStr) * 1000;
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Cannot parse distance value: " + distanceStr);
+            }
+            String timeStr = phase.substring(phase.indexOf("&") + 1, phase.indexOf("min")).trim();
+            int seconds;
+            try {
+                seconds = Integer.valueOf(timeStr) * 60;
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Cannot parse time value: " + timeStr);
+            }
+
+            distanceInMeters += Math.min(meters, 1000 * seconds / pace.getTime());
+            timeInSeconds += distanceInMeters * pace.getTime() / 1000;
+        } else if (phase.contains("min")) {
             String[] parts = phase.split("min");
             int phaseTime;
             try {

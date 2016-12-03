@@ -6,7 +6,7 @@ package com.sandlex.running.jd;
 public class Pace {
 
     private String name;
-    private int time;
+    private int time; //seconds per 1000 meters
 
     public Pace(String name, int time) {
         this.name = name;

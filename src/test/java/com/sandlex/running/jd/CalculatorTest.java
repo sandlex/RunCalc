@@ -7,8 +7,6 @@ import org.junit.rules.ExpectedException;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
 
 /**
  * author: Alexey Peskov
@@ -105,4 +103,44 @@ public class CalculatorTest {
         Collection<String> parts = activity.rebuildSchema();
         Assert.assertEquals(23, parts.size());
     }
+
+    public void testCalculate1() {
+        Activity activity = new Activity(PACES, SCHEMA1);
+        Target target = activity.calculate();
+        Assert.assertEquals("01:38:57", target.getTime());
+        Assert.assertEquals(22.4, target.getDistance(), 2);
+    }
+
+    public void testCalculate2() {
+        Activity activity = new Activity(PACES, SCHEMA2);
+        Target target = activity.calculate();
+        Assert.assertEquals("01:38:57", target.getTime());
+        Assert.assertEquals(22.4, target.getDistance(), 2);
+    }
+
+    public void testCalculate3() {
+        Activity activity = new Activity(PACES, SCHEMA3);
+        Target target = activity.calculate();
+        Assert.assertEquals("01:38:57", target.getTime());
+        Assert.assertEquals(22.4, target.getDistance(), 2);
+    }
+
+    @Test
+    public void testCalculate4() {
+        Activity activity = new Activity(PACES, SCHEMA4);
+        Target target = activity.calculate();
+        Assert.assertEquals("01:38:57", target.getTime());
+        Assert.assertEquals(22.4, target.getDistance(), 2);
+    }
+
+    public void testCalculate5() {
+        Activity activity = new Activity(PACES, SCHEMA4);
+        Target target = activity.calculate();
+        Assert.assertEquals("01:38:57", target.getTime());
+        Assert.assertEquals(22.4, target.getDistance(), 2);
+    }
+
+//    "Cannot parse time value: " + parts[0].trim()
+//    "Cannot parse distance value: " + distanceStr
+//    "Cannot determine pace of: " + phase
 }

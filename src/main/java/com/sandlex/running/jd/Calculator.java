@@ -1,6 +1,8 @@
 package com.sandlex.running.jd;
 
 /**
+ * Entry point
+ * 
  * author: Alexey Peskov
  */
 public class Calculator {

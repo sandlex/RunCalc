@@ -1,23 +1,14 @@
 package com.sandlex.running.jd;
 
+import lombok.Data;
+
 /**
  * author: Alexey Peskov
  */
-public class Pace {
+@Data
+class Pace {
 
-    private String name;
-    private int time; //seconds per 1000 meters
+    private final String name;
+    private final int time; //seconds per 1000 meters
 
-    public Pace(String name, int time) {
-        this.name = name;
-        this.time = time;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getTime() {
-        return time;
-    }
 }

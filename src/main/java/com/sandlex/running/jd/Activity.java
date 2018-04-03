@@ -41,7 +41,6 @@ public class Activity {
         }
 
         Comparator<Pace> lengthComparator = new Comparator<Pace>() {
-            @Override
             public int compare(Pace p1, Pace p2) {
                 return ((Integer) p2.getName().length()).compareTo(p1.getName().length());
             }

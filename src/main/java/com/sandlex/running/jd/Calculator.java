@@ -7,7 +7,7 @@ package com.sandlex.running.jd;
  */
 public class Calculator {
 
-    public static Target getEstimation(String paces, String schema) {
+    private static Target getEstimation(String paces, String schema) {
         Activity activity = new Activity(paces, schema);
         return activity.calculate();
     }

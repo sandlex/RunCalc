@@ -6,21 +6,21 @@ import java.util.concurrent.TimeUnit;
 /**
  * author: Alexey Peskov
  */
-public class Target {
+class Target {
 
     private List<Pace> paces;
     private float distanceInMeters;
     private int timeInSeconds;
 
-    public Target(List<Pace> paces) {
+    Target(List<Pace> paces) {
         this.paces = paces;
     }
 
-    public float getDistance() {
+    float getDistance() {
         return distanceInMeters / 1000;
     }
 
-    public String getTime() {
+    String getTime() {
         int seconds = timeInSeconds;
         long hours = TimeUnit.SECONDS.toHours(seconds);
         seconds -= TimeUnit.HOURS.toSeconds(hours);

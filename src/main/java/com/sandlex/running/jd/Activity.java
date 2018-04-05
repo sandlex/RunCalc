@@ -1,23 +1,28 @@
 package com.sandlex.running.jd;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * author: Alexey Peskov
  */
-public class Activity {
+class Activity {
 
     private final String pacesCfg;
     private final String schemaCfg;
     private List<Pace> paces;
     private List<String> schema;
 
-    public Activity(String pacesCfg, String schemaCfg) {
+    Activity(String pacesCfg, String schemaCfg) {
         this.pacesCfg = pacesCfg;
         this.schemaCfg = schemaCfg;
     }
 
-    public Target calculate() {
+    Target calculate() {
         rebuildPaces();
         rebuildSchema();
 
@@ -30,7 +35,7 @@ public class Activity {
     }
 
     List<Pace> rebuildPaces() {
-        paces = new ArrayList<Pace>();
+        paces = new ArrayList<>();
         String[] parts = pacesCfg.split(",");
         for (String part : parts) {
             if (!part.contains("=")) {
@@ -40,18 +45,14 @@ public class Activity {
             paces.add(new Pace(pace[0], getValueInSeconds(pace[1])));
         }
 
-        Comparator<Pace> lengthComparator = new Comparator<Pace>() {
-            public int compare(Pace p1, Pace p2) {
-                return ((Integer) p2.getName().length()).compareTo(p1.getName().length());
-            }
-        };
-        Collections.sort(paces, lengthComparator);
+        Comparator<Pace> lengthComparator = (p1, p2) -> Integer.compare(p2.getName().length(), p1.getName().length());
+        paces.sort(lengthComparator);
 
         return Collections.unmodifiableList(paces);
     }
 
     Collection<String> rebuildSchema() {
-        schema = new ArrayList<String>();
+        schema = new ArrayList<>();
 
         String[] parts = schemaCfg.split("\\+");
         for (String part : parts) {

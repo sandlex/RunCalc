@@ -1,9 +1,10 @@
 package com.sandlex.running.jd;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
+import org.junit.Test;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.within;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,22 +31,22 @@ public class CalculatorTest {
     private static final String PACES_ERR2 = "E=4:45,L=4:45,M=4:14,T=4.00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20";
     private static final String PACES_ERR3 = "E=4:4d5,L=4:45,M=4:14,T=4.00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20";
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse pace: T-4:00")
+    @Test
     public void testRebuildPacesErr1() {
         Activity activity = new Activity(PACES_ERR1, SCHEMA1);
-        activity.rebuildPaces();
+        assertThatCode(activity::rebuildPaces).hasMessageContaining("Cannot parse pace: T-4:00");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse pace value: 4.00")
+    @Test
     public void testRebuildPacesErr2() {
         Activity activity = new Activity(PACES_ERR2, SCHEMA1);
-        activity.rebuildPaces();
+        assertThatCode(activity::rebuildPaces).hasMessageContaining("Cannot parse pace value: 4.00");
     }
 
-    @Test(expectedExceptions = NumberFormatException.class)
+    @Test
     public void testRebuildPacesErr3() {
         Activity activity = new Activity(PACES_ERR3, SCHEMA1);
-        activity.rebuildPaces();
+        assertThatCode(activity::rebuildPaces).isInstanceOf(NumberFormatException.class);
     }
 
     @Test
@@ -103,22 +104,22 @@ public class CalculatorTest {
         assertThat(parts).hasSize(23);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse time value: 3O")
+    @Test
     public void testCalculateErr1() {
         Activity activity = new Activity(PACES, SCHEMA_ERR1);
-        activity.calculate();
+        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse time value: 3O");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse distance value: 1O")
+    @Test
     public void testCalculateErr2() {
         Activity activity = new Activity(PACES, SCHEMA_ERR2);
-        activity.calculate();
+        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse distance value: 1O");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot determine pace of: 400 jog")
+    @Test
     public void testCalculateErr3() {
         Activity activity = new Activity(PACES, SCHEMA_ERR3);
-        activity.calculate();
+        assertThatCode(activity::calculate).hasMessageContaining("Cannot determine pace of: 400 jog");
     }
 
     @Test
@@ -160,16 +161,16 @@ public class CalculatorTest {
         assertThat(target.getDistance()).isEqualTo(22.11f, within(0.1f));
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse distance value: 2O")
+    @Test
     public void testCalculateLesserErr1() {
         Activity activity = new Activity(PACES, SCHEMA_ERR4);
-        activity.calculate();
+        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse distance value: 2O");
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Cannot parse time value: 1O0")
+    @Test
     public void testCalculateLesserErr2() {
         Activity activity = new Activity(PACES, SCHEMA_ERR5);
-        activity.calculate();
+        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse time value: 1O0");
     }
 
     @Test

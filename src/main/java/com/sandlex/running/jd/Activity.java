@@ -1,6 +1,8 @@
 package com.sandlex.running.jd;
 
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,17 +12,13 @@ import java.util.List;
 /**
  * author: Alexey Peskov
  */
+@RequiredArgsConstructor
 class Activity {
 
     private final String pacesCfg;
     private final String schemaCfg;
     private List<Pace> paces;
     private List<String> schema;
-
-    Activity(String pacesCfg, String schemaCfg) {
-        this.pacesCfg = pacesCfg;
-        this.schemaCfg = schemaCfg;
-    }
 
     Target calculate() {
         rebuildPaces();
@@ -56,19 +54,21 @@ class Activity {
 
         String[] parts = schemaCfg.split("\\+");
         for (String part : parts) {
-            if (part.trim().contains("x")) {
-                String[] repeated = part.trim().split("x");
+            String cleanPart = part.trim();
+            if (cleanPart.contains("x")) {
+                String[] repeated = cleanPart.split("x");
                 for (int i = 0; i < Integer.valueOf(repeated[0].trim()); i++) {
-                    if (repeated[1].trim().contains("w/")) {
-                        String[] combined = repeated[1].trim().split("w/");
+                    String clean1 = repeated[1].trim();
+                    if (clean1.contains("w/")) {
+                        String[] combined = clean1.split("w/");
                         schema.add(combined[0].trim());
                         schema.add(combined[1].trim());
                     } else {
-                        schema.add(repeated[1].trim());
+                        schema.add(clean1);
                     }
                 }
             } else {
-                schema.add(part.trim());
+                schema.add(cleanPart);
             }
         }
 

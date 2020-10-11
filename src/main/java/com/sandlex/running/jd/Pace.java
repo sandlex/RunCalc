@@ -2,9 +2,6 @@ package com.sandlex.running.jd;
 
 import lombok.Data;
 
-/**
- * author: Alexey Peskov
- */
 @Data
 class Pace {
 

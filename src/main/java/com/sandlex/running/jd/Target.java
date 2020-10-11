@@ -1,20 +1,16 @@
 package com.sandlex.running.jd;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * author: Alexey Peskov
- */
+@RequiredArgsConstructor
 class Target {
 
-    private List<Pace> paces;
+    private final List<Pace> paces;
     private float distanceInMeters;
     private int timeInSeconds;
-
-    Target(List<Pace> paces) {
-        this.paces = paces;
-    }
 
     float getDistance() {
         return distanceInMeters / 1000;
@@ -41,14 +37,14 @@ class Target {
             String distanceStr = phase.substring(phase.indexOf("(") + 1, phase.indexOf("km")).trim();
             int meters;
             try {
-                meters = Integer.valueOf(distanceStr) * 1000;
+                meters = Integer.parseInt(distanceStr) * 1000;
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Cannot parse distance value: " + distanceStr);
             }
             String timeStr = phase.substring(phase.indexOf("&") + 1, phase.indexOf("min")).trim();
             int seconds;
             try {
-                seconds = Integer.valueOf(timeStr) * 60;
+                seconds = Integer.parseInt(timeStr) * 60;
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Cannot parse time value: " + timeStr);
             }
@@ -59,7 +55,7 @@ class Target {
             String[] parts = phase.split("min");
             int phaseTime;
             try {
-                phaseTime = Integer.valueOf(parts[0].trim()) * 60;
+                phaseTime = Integer.parseInt(parts[0].trim()) * 60;
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Cannot parse time value: " + parts[0].trim());
             }
@@ -71,7 +67,7 @@ class Target {
             String phaseDistanceStr = phase.substring(0, phase.length() - pace.getName().length()).trim();
             int phaseDistance;
             try {
-                phaseDistance = Integer.valueOf(phaseDistanceStr);
+                phaseDistance = Integer.parseInt(phaseDistanceStr);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Cannot parse distance value: " + phaseDistanceStr);
             }

@@ -9,9 +9,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * author: Alexey Peskov
- */
 @RequiredArgsConstructor
 class Activity {
 
@@ -25,9 +22,7 @@ class Activity {
         rebuildSchema();
 
         Target target = new Target(paces);
-        for (String phase : schema) {
-            target.addPhase(phase);
-        }
+        schema.forEach(target::addPhase);
 
         return target;
     }
@@ -57,7 +52,7 @@ class Activity {
             String cleanPart = part.trim();
             if (cleanPart.contains("x")) {
                 String[] repeated = cleanPart.split("x");
-                for (int i = 0; i < Integer.valueOf(repeated[0].trim()); i++) {
+                for (int i = 0; i < Integer.parseInt(repeated[0].trim()); i++) {
                     String clean1 = repeated[1].trim();
                     if (clean1.contains("w/")) {
                         String[] combined = clean1.split("w/");

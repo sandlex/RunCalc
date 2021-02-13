@@ -1,12 +1,12 @@
 package com.sandlex.running.jd;
 
 
+import com.sandlex.running.jd.model.PaceBlock;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,11 +14,11 @@ class Activity {
 
     private final String pacesCfg;
     private final String schemaCfg;
-    private List<Pace> paces;
+    private PaceBlock paceBlock;
     private List<String> schema;
 
     Target calculate() {
-        rebuildPaces();
+        paceBlock = new PaceBlock(pacesCfg);
         rebuildSchema();
 
         Target target = new Target(paces);
@@ -27,22 +27,6 @@ class Activity {
         return target;
     }
 
-    List<Pace> rebuildPaces() {
-        paces = new ArrayList<>();
-        String[] parts = pacesCfg.split(",");
-        for (String part : parts) {
-            if (!part.contains("=")) {
-                throw new IllegalArgumentException("Cannot parse pace: " + part);
-            }
-            String[] pace = part.split("=");
-            paces.add(new Pace(pace[0], getValueInSeconds(pace[1])));
-        }
-
-        Comparator<Pace> lengthComparator = (p1, p2) -> Integer.compare(p2.getName().length(), p1.getName().length());
-        paces.sort(lengthComparator);
-
-        return Collections.unmodifiableList(paces);
-    }
 
     Collection<String> rebuildSchema() {
         schema = new ArrayList<>();
@@ -70,15 +54,4 @@ class Activity {
         return Collections.unmodifiableCollection(schema);
     }
 
-    private int getValueInSeconds(String pace) {
-        if (!pace.contains(":")) {
-            throw new IllegalArgumentException("Cannot parse pace value: " + pace);
-        }
-
-        String[] parts = pace.split(":");
-        int minutes = Integer.parseInt(parts[0]);
-        int seconds = Integer.parseInt(parts[1]);
-
-        return minutes * 60 + seconds;
-    }
 }

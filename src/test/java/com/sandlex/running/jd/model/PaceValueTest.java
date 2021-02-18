@@ -18,14 +18,14 @@ class PaceValueTest {
     void shouldHandleNegativeNumber() {
         assertThatThrownBy(() -> new PaceValue("-03:33"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Incorrect minutes value: -03:33. Expected value 0..59");
+                .hasMessageContaining("Incorrect minutes value: -3. Expected value 0..59");
     }
 
     @Test
     void shouldHandleHighNumber() {
         assertThatThrownBy(() -> new PaceValue("03:63"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Incorrect seconds value: 03:63. Expected value 0..59");
+                .hasMessageContaining("Incorrect seconds value: 63. Expected value 0..59");
     }
 
     @Test

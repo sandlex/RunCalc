@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 @Value
 class PaceName {
 
-    private static final String RESTRICTED_CHARACTERS = "*( )@'\"";
     String value;
 
     PaceName(String input) {
@@ -17,12 +16,8 @@ class PaceName {
             throw new IllegalArgumentException("Pace name is empty");
         }
 
-        if (Pattern.matches("\\d", String.valueOf(input.charAt(0)))) {
-            throw new IllegalArgumentException("Pace name cannot start with a number");
-        }
-
-        if (StringUtils.containsAny(input, RESTRICTED_CHARACTERS)) {
-            throw new IllegalArgumentException("Pace name cannot contain restricted characters: " + RESTRICTED_CHARACTERS);
+        if (!Pattern.matches("^[^\\d][a-zA-Z0-9]+$", input)) {
+            throw new IllegalArgumentException("Pace name can contain only letters and numbers and can not start with a number");
         }
 
         value = input;

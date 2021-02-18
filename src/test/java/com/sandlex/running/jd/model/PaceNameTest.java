@@ -16,19 +16,12 @@ class PaceNameTest {
                 .hasMessageContaining("Pace name is empty");
     }
 
-    @Test
-    void shouldHandleInputStartingWithNumber() {
-        assertThatThrownBy(() -> new PaceName("10T"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Pace name cannot start with a number");
-    }
-
     @ParameterizedTest
-    @ValueSource(strings = {"T*10", "T(10", "T)10", "T 10", "T@10", "T'10", "T\"10",})
+    @ValueSource(strings = {"10T", "T*10", "T(10", "T 10", "T_10"})
     void shouldHandleRestrictedCharacters(String input) {
         assertThatThrownBy(() -> new PaceName(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Pace name cannot contain restricted characters: *( )@'\"");
+                .hasMessageContaining("Pace name can contain only letters and numbers and can not start with a number");
     }
 
     @Test

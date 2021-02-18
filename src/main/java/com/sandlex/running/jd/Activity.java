@@ -21,10 +21,10 @@ class Activity {
         paceBlock = new PaceBlock(pacesCfg);
         rebuildSchema();
 
-        Target target = new Target(paces);
-        schema.forEach(target::addPhase);
+        Target target;// = new Target(paces);
+//        schema.forEach(target::addPhase);
 
-        return target;
+        return null;//target;
     }
 
 

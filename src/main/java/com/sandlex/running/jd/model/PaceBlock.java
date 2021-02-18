@@ -16,6 +16,10 @@ public class PaceBlock {
     List<Pace> paces;
 
     public PaceBlock(String input) {
+        if (!input.contains(SEPARATOR)) {
+            throw new IllegalArgumentException("Cannot parse pace block: " + input + ". Expected format: " + FORMAT);
+        }
+
         paces = new ArrayList<>();
         String[] parts = input.split(SEPARATOR);
         if (parts.length == 0) {
@@ -26,7 +30,7 @@ public class PaceBlock {
         for (String part : parts) {
             Pace pace = new Pace(part);
             if (usedPaceNames.contains(pace.getPaceName())) {
-                throw new IllegalArgumentException("Pace used more than once: " + pace.getPaceName());
+                throw new IllegalArgumentException("Pace used more than once: " + pace.getPaceName().getValue());
             }
             paces.add(pace);
             usedPaceNames.add(pace.getPaceName());

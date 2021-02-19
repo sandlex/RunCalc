@@ -9,16 +9,16 @@ class PaceValueTest {
 
     @Test
     void shouldHandleMissingMissingSeparator() {
-        assertThatThrownBy(() -> new PaceValue("03;33"))
+        assertThatThrownBy(() -> new PaceValue("0333"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Cannot parse pace value: 03;33. Expected format: mm:ss");
+                .hasMessageContaining("Cannot parse pace value: 0333. Expected format: mm:ss");
     }
 
     @Test
     void shouldHandleNegativeNumber() {
         assertThatThrownBy(() -> new PaceValue("-03:33"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Incorrect minutes value: -3. Expected value 0..59");
+                .hasMessageContaining("Pace value can contain only numbers and colon");
     }
 
     @Test

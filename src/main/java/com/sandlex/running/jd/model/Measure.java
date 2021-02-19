@@ -1,4 +1,4 @@
 package com.sandlex.running.jd.model;
 
-public class Segment {
+public interface Measure {
 }

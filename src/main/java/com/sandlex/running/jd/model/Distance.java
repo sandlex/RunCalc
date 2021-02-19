@@ -1,6 +1,6 @@
 package com.sandlex.running.jd.model;
 
-class Distance {
+class Distance implements Measure {
 
     enum System {
         METRIC(1),

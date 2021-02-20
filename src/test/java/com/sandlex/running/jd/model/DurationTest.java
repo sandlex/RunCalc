@@ -2,37 +2,37 @@ package com.sandlex.running.jd.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class DurationTest {
 
     @Test
     void shouldHandleRestrictedCharacter() {
-        assertThatThrownBy(() -> new Duration("-03:33"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Duration can contain only numbers and colons");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Duration("-03:33"))
+                .withMessage("Duration can contain only numbers and colons");
     }
 
     @Test
     void shouldHandleInvalidFormatTooShort() {
-        assertThatThrownBy(() -> new Duration("0333"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Cannot parse duration: 0333. Expected format: hh:mm:ss or mm:ss");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Duration("0333"))
+                .withMessage("Cannot parse duration: 0333. Expected format: hh:mm:ss or mm:ss");
     }
 
     @Test
     void shouldHandleInvalidFormatTooLong() {
-        assertThatThrownBy(() -> new Duration("03:33:33:33"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Cannot parse duration: 03:33:33:33. Expected format: hh:mm:ss or mm:ss");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Duration("03:33:33:33"))
+                .withMessage("Cannot parse duration: 03:33:33:33. Expected format: hh:mm:ss or mm:ss");
     }
 
     @Test
     void shouldHandleHighNumber() {
-        assertThatThrownBy(() -> new Duration("03:63"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Incorrect seconds value: 63. Expected value 0..59");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Duration("03:63"))
+                .withMessage("Incorrect seconds value: 63. Expected value 0..59");
     }
 
     @Test

@@ -23,8 +23,12 @@ class Schema {
                 if (level > 1) {
                     throw new IllegalArgumentException("Schema cannot contain nested repetitions");
                 }
-            } else if (ch == ')' && level == 0) {
-                throw new IllegalArgumentException("Something is wrong with schema, check parenthesis");
+            } else if (ch == ')') {
+                if (level == 0) {
+                    throw new IllegalArgumentException("Something is wrong with schema, check parenthesis");
+                } else {
+                    level--;
+                }
             }
         }
     }

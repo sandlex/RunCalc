@@ -2,30 +2,30 @@ package com.sandlex.running.jd.model;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class PaceValueTest {
 
     @Test
     void shouldHandleMissingMissingSeparator() {
-        assertThatThrownBy(() -> new PaceValue("0333"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Cannot parse pace value: 0333. Expected format: mm:ss");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new PaceValue("0333"))
+                .withMessage("Cannot parse pace value: 0333. Expected format: mm:ss");
     }
 
     @Test
     void shouldHandleNegativeNumber() {
-        assertThatThrownBy(() -> new PaceValue("-03:33"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Pace value can contain only numbers and colon");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new PaceValue("-03:33"))
+                .withMessage("Pace value can contain only numbers and colon");
     }
 
     @Test
     void shouldHandleHighNumber() {
-        assertThatThrownBy(() -> new PaceValue("03:63"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Incorrect seconds value: 63. Expected value 0..59");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new PaceValue("03:63"))
+                .withMessage("Incorrect seconds value: 63. Expected value 0..59");
     }
 
     @Test

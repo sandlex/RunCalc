@@ -7,9 +7,6 @@ import static org.assertj.core.api.Assertions.within;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * author: Alexey Peskov
- */
 public class CalculatorTest {
 /*
     private static final String SCHEMA1 = "2E + 3 x 1T w/2 min rest + 3 x 3 min H w/2 min jg + 4 x 200 R w/200 jg + 1E";

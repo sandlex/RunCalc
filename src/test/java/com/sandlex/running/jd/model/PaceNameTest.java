@@ -4,24 +4,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class PaceNameTest {
 
     @Test
     void shouldHandleEmptyInput() {
-        assertThatThrownBy(() -> new PaceName(""))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Pace name is empty");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new PaceName(""))
+                .withMessage("Pace name is empty");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"10T", "T*10", "T(10", "T 10", "T_10"})
     void shouldHandleRestrictedCharacters(String input) {
-        assertThatThrownBy(() -> new PaceName(input))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Pace name can contain only letters and numbers and can not start with a number");
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new PaceName(input))
+                .withMessage("Pace name can contain only letters and numbers and can not start with a number");
     }
 
     @Test

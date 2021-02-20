@@ -7,4 +7,6 @@ class Repetition implements Calculable {
     RepetitionCount repetitionCount;
     List<Phase> phases;
 
+    // if count of * > 1 -> error
+
 }

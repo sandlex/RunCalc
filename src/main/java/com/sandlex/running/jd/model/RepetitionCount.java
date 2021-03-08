@@ -11,7 +11,11 @@ class RepetitionCount {
         try {
             value = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid repetition count " + input);
+            throw new IllegalArgumentException("Repetition count must be an integer number: " + input);
+        }
+
+        if (value <= 0) {
+            throw new IllegalArgumentException("Repetition count must be a positive number: " + input);
         }
     }
 

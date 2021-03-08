@@ -1,6 +1,5 @@
 package com.sandlex.running.jd;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -24,40 +23,32 @@ class SchemaParserTest {
                 .withMessage("Nested round brackets not supported");
     }
 
-    // TODO Replace with parameterized test
     @Test
     void shouldExtractSubstringsCase1() {
         List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign("2E + 3 * (2E)");
 
-        assertThat(strings).containsAll(Lists.newArrayList("2E", "3*(2E)"));
+        assertThat(strings).containsExactly("2E", "3*(2E)");
     }
 
     @Test
     void shouldExtractSubstringsCase2() {
         List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign("2E + 3 * (2E + 3E) + 2E");
 
-        assertThat(strings).containsAll(Lists.newArrayList("2E", "2E", "3*(2E+3E)"));
+        assertThat(strings).containsExactly("2E", "2E", "3*(2E+3E)");
     }
 
     @Test
     void shouldExtractSubstringsCase3() {
         List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign("3 * (2E + 3rest) + 2E");
 
-        assertThat(strings).containsAll(Lists.newArrayList("2E", "3*(2E+3rest)"));
-    }
-
-    @Test
-    void shouldExtractSubstringsCase4() {
-        List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign("3 * (2E + 3rest) + 2E");
-
-        assertThat(strings).containsAll(Lists.newArrayList("3*(2E+3rest)"));
+        assertThat(strings).containsExactly("2E", "3*(2E+3rest)");
     }
 
     @Test
     void shouldExtractSubstringsCase5() {
         List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign("2E + 3 * (2E + 3rest) + (2E + 3Q) * 7");
 
-        assertThat(strings).containsAll(Lists.newArrayList("2E", "3*(2E+3rest)", "(2E+3Q)*7"));
+        assertThat(strings).containsExactly("2E", "3*(2E+3rest)", "(2E+3Q)*7");
     }
 
 }

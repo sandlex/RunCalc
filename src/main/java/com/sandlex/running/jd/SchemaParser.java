@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class SchemaParser {
@@ -53,7 +54,9 @@ public class SchemaParser {
             schema = StringUtils.replaceOnce(schema, secondLevelPart, "");
         }
 
-        List<String> result = new ArrayList<>(Arrays.asList(schema.split("\\+")));
+        List<String> result = Arrays.stream(schema.split("\\+"))
+                .filter(str -> str.length() > 0)
+                .collect(Collectors.toList());
         result.addAll(secondLevelParts);
         return result;
     }

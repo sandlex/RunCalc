@@ -25,12 +25,17 @@ class Schema {
         List<String> strings = SchemaParser.extractTopLevelSubstringsSeparatedByPlusSign(schema);
         phases = strings.stream()
                 .map(str -> {
-                    if (str.contains("(")) {
+                    if (isRepetition(str)) {
                         return new Repetition(str);
                     }
                     return new Phase(str, Distance.System.METRIC);
                 })
                 .collect(Collectors.toList());
+    }
+
+    private boolean isRepetition(String input) {
+        //TODO support 2*3E format or check that "*" is used only with conjunction of ( or )
+        return input.contains("(");
     }
 
 }

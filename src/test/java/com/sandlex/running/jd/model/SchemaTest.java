@@ -1,12 +1,11 @@
 package com.sandlex.running.jd.model;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class SchemaTest {
 
@@ -23,13 +22,13 @@ class SchemaTest {
         Schema schema = new Schema("2.1E + 01:30:00MarathonPace");
 
         assertThat(schema.getPhases()).hasSize(2);
-//        assertThat(schema.getPhases()).extracting()containsAll(Lists.newArrayList(new Phase()));
-
     }
 
     @Test
-    void shouldParse() {
-        new Schema("2.1E + 3 * (2E + 3E) + 01:30:00MarathonPace");
+    void shouldParseRepeatedPhases() {
+        Schema schema = new Schema("2.1E + 3 * (2E + 3E) + 01:30:00MarathonPace");
+
+        assertThat(schema.getPhases()).hasSize(3);
     }
 
 }

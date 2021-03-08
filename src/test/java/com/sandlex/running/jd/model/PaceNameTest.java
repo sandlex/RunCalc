@@ -24,10 +24,11 @@ class PaceNameTest {
                 .withMessage("Pace name can contain only letters and numbers and can not start with a number");
     }
 
-    @Test
-    void shouldCreatePaceName() {
-        PaceName paceName = new PaceName("T10");
+    @ParameterizedTest
+    @ValueSource(strings = {"T10", "E"})
+    void shouldCreatePaceName(String input) {
+        PaceName paceName = new PaceName(input);
 
-        assertThat(paceName.getValue()).isEqualTo("T10");
+        assertThat(paceName.getValue()).isEqualTo(input);
     }
 }

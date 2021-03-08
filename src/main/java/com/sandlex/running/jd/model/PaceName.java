@@ -16,7 +16,7 @@ class PaceName {
             throw new IllegalArgumentException("Pace name is empty");
         }
 
-        if (!Pattern.matches("^[^\\d][a-zA-Z0-9]+$", input)) {
+        if (!Pattern.matches("^[^\\d][a-zA-Z0-9]*$", input)) {
             throw new IllegalArgumentException("Pace name can contain only letters and numbers and can not start with a number");
         }
 

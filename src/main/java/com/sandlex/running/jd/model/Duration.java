@@ -46,6 +46,6 @@ class Duration implements Measure {
         if (seconds >= 60) {
             throw new IllegalArgumentException("Incorrect seconds value: " + seconds + ". Expected value 0..59");
         }
-
     }
+
 }

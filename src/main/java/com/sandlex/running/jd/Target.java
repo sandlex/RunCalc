@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 class Target {
-
+/*
     private final List<Pace> paces;
     private float distanceInMeters;
     private int timeInSeconds;
@@ -89,5 +89,5 @@ class Target {
 
         throw new IllegalArgumentException("Cannot determine pace of: " + phase);
     }
-
+*/
 }

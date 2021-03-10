@@ -1,19 +1,18 @@
 package com.sandlex.running.jd.model;
 
-class Distance implements Measure {
+import lombok.RequiredArgsConstructor;
 
-    enum System {
+public class Distance implements Measure {
+
+    @RequiredArgsConstructor
+    public enum System {
         METRIC(1),
         IMPERIAL(1.6);
 
         private final double ratio;
-
-        System(double ratio) {
-            this.ratio = ratio;
-        }
     }
 
-    private final double value;
+    private final double kilometers;
 
     Distance(System system, String input) {
         double distance;
@@ -27,10 +26,10 @@ class Distance implements Measure {
             throw new IllegalArgumentException("Distance must be a positive value");
         }
 
-        value = distance * system.ratio;
+        kilometers = distance * system.ratio;
     }
 
     double getValue(System system) {
-        return value * system.ratio;
+        return kilometers * system.ratio;
     }
 }

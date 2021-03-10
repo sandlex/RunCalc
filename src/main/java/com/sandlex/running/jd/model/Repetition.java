@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Value
-class Repetition implements Calculable {
+public class Repetition implements Calculable {
 
     RepetitionCount repetitionCount;
     List<Phase> phases;

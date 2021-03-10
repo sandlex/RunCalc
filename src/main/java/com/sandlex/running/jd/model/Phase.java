@@ -4,7 +4,7 @@ import lombok.Value;
 import org.apache.commons.lang.StringUtils;
 
 @Value
-class Phase implements Calculable {
+public class Phase implements Calculable {
 
     Measure measure;
     PaceName paceName;
@@ -26,4 +26,5 @@ class Phase implements Calculable {
         String originalMeasureInput = input.substring(0, input.length() - paceNameLength);
         measure = isDurationMeasure ? new Duration(originalMeasureInput) : new Distance(system, originalMeasureInput);
     }
+
 }

@@ -3,7 +3,7 @@ package com.sandlex.running.jd.model;
 import lombok.Value;
 
 @Value
-class Pace {
+public class Pace {
 
     private static final String SEPARATOR = "=";
     private static final String FORMAT = "pace=mm:ss";

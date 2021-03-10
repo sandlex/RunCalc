@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Value
-class Schema {
+public class Schema {
 
     List<Calculable> phases;
 
-    Schema(String input) {
+    public Schema(String input) {
         String schema = StringUtils.deleteWhitespace(input);
         // Following things should be done outside of this class
         SchemaParser.checkNestedRoundBrackets(schema);

@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.regex.Pattern;
 
 @Value
-class PaceName {
+public class PaceName {
 
     String value;
 
@@ -22,4 +22,10 @@ class PaceName {
 
         value = input;
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
 }

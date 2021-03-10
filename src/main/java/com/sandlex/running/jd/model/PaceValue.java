@@ -5,7 +5,7 @@ import lombok.Value;
 import java.util.regex.Pattern;
 
 @Value
-class PaceValue {
+public class PaceValue {
 
     private static final String SEPARATOR = ":";
     private static final String FORMAT = "mm:ss";
@@ -32,4 +32,5 @@ class PaceValue {
             throw new IllegalArgumentException("Incorrect seconds value: " + seconds + ". Expected value 0..59");
         }
     }
+
 }

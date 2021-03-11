@@ -28,9 +28,9 @@ class SolverTest {
         PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
         Schema schema = new Schema("2.2E + 1:32:17M");
 
-        Solver.Result result = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
 
-        assertThat(result.toString()).isEqualTo("Estimated distance - 24.20km, time - 01:42:11");
+        assertThat(estimation.toString()).isEqualTo("Estimated distance - 24.20km, time - 01:42:11");
     }
 
     @Test
@@ -38,9 +38,9 @@ class SolverTest {
         PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
         Schema schema = new Schema("2 * (2.2E + 1:32:17M)");
 
-        Solver.Result result = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
 
-        assertThat(result.toString()).isEqualTo("Estimated distance - 48.40km, time - 03:24:22");
+        assertThat(estimation.toString()).isEqualTo("Estimated distance - 48.40km, time - 03:24:22");
     }
 
 }

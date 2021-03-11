@@ -6,8 +6,8 @@ import com.sandlex.running.jd.model.Schema;
 
 public class Calculator {
 
-    public static String getEstimation(String paces, String schema, String metricSystem) {
-        return Solver.solve(new PaceBlock(paces), new Schema(schema), Distance.System.METRIC).toString();
+    public static Estimation getEstimation(String paces, String schema, String metricSystem) {
+        return Solver.solve(new PaceBlock(paces), new Schema(schema), Distance.System.METRIC);
     }
 
     public static void main(String[] args) {

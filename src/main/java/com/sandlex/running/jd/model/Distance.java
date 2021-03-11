@@ -29,7 +29,7 @@ public class Distance implements Measure {
         kilometers = distance * system.ratio;
     }
 
-    double getValue(System system) {
+    public double getKilometers(System system) {
         return kilometers * system.ratio;
     }
 }

@@ -3,7 +3,7 @@ package com.sandlex.running.jd.model;
 import lombok.Value;
 
 @Value
-class RepetitionCount {
+public class RepetitionCount {
 
     int value;
 

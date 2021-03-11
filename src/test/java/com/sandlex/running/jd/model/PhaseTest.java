@@ -11,7 +11,7 @@ class PhaseTest {
         Phase phase = new Phase("2.5T10", Distance.System.METRIC);
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getValue(Distance.System.METRIC)).isEqualTo(2.5);
+        assertThat(((Distance) phase.getMeasure()).getKilometers(Distance.System.METRIC)).isEqualTo(2.5);
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 
@@ -20,7 +20,7 @@ class PhaseTest {
         Phase phase = new Phase("25T10", Distance.System.METRIC);
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getValue(Distance.System.METRIC)).isEqualTo(25);
+        assertThat(((Distance) phase.getMeasure()).getKilometers(Distance.System.METRIC)).isEqualTo(25);
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 

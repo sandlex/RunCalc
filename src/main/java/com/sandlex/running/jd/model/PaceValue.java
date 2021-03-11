@@ -33,4 +33,8 @@ public class PaceValue {
         }
     }
 
+    public int getInSeconds() {
+        return minutes * 60 + seconds;
+    }
+
 }

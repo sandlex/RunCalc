@@ -25,14 +25,14 @@ class DistanceTest {
     void shouldParseMetricAndGetImperialValue() {
         Distance distance = new Distance(Distance.System.METRIC, "10.6");
 
-        assertThat(distance.getValue(Distance.System.IMPERIAL)).isEqualTo(16.96);
+        assertThat(distance.getKilometers(Distance.System.IMPERIAL)).isEqualTo(16.96);
     }
 
     @Test
     void shouldParseImperialAndGetMetricValue() {
         Distance distance = new Distance(Distance.System.IMPERIAL, "10");
 
-        assertThat(distance.getValue(Distance.System.METRIC)).isEqualTo(16);
+        assertThat(distance.getKilometers(Distance.System.METRIC)).isEqualTo(16);
     }
 
 }

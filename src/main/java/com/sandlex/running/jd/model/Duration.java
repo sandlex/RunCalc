@@ -5,7 +5,7 @@ import lombok.Value;
 import java.util.regex.Pattern;
 
 @Value
-class Duration implements Measure {
+public class Duration implements Measure {
 
     private static final String SEPARATOR = ":";
     private static final String FORMAT = "hh:mm:ss or mm:ss";
@@ -46,6 +46,10 @@ class Duration implements Measure {
         if (seconds >= 60) {
             throw new IllegalArgumentException("Incorrect seconds value: " + seconds + ". Expected value 0..59");
         }
+    }
+
+    public int getInSeconds() {
+        return hours * 3600 + minutes * 60 + seconds;
     }
 
 }

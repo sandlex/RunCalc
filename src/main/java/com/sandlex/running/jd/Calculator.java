@@ -6,6 +6,10 @@ import com.sandlex.running.jd.model.Schema;
 
 public class Calculator {
 
+    public static String getEstimation(String paces, String schema, String metricSystem) {
+        return Solver.solve(new PaceBlock(paces), new Schema(schema), Distance.System.METRIC).toString();
+    }
+
     public static void main(String[] args) {
         if (args.length < 2 || args.length > 3) {
             System.out.println("Expected input parameters:");
@@ -14,7 +18,7 @@ public class Calculator {
             System.exit(1);
         }
 
-        System.out.println(Solver.solve(new PaceBlock(args[0]), new Schema(args[1]), Distance.System.METRIC));
+        System.out.println(Calculator.getEstimation(args[0], args[1], ""));
     }
 
 }

@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/sandlex/runcalc.svg?branch=master)](https://travis-ci.org/sandlex/runcalc)
+[![Coverage Status](http://img.shields.io/coveralls/sandlex/runcalc/master.svg?style=flat-square)](https://coveralls.io/r/sandlex/runcalc?branch=master)
 
 ### Jack Daniels' Running Formula calculator
 Input parameters:

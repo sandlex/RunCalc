@@ -60,7 +60,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.sandlex.running.jd.Calculator</mainClass>
+                            <mainClass>com.sandlex.runcalc.Calculator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

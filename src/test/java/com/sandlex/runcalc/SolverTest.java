@@ -30,7 +30,8 @@ class SolverTest {
 
         Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
 
-        assertThat(estimation.toString()).isEqualTo("Estimated distance - 24.20km, time - 01:42:11");
+        assertThat(estimation.getKilometers()).isEqualTo(24.20);
+        assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
     }
 
     @Test
@@ -40,7 +41,8 @@ class SolverTest {
 
         Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
 
-        assertThat(estimation.toString()).isEqualTo("Estimated distance - 48.40km, time - 03:24:22");
+        assertThat(estimation.getKilometers()).isEqualTo(48.40);
+        assertThat(estimation.getFormattedTime()).isEqualTo("03:24:22");
     }
 
 }

@@ -65,7 +65,7 @@ class SolverTest {
         assertThat(estimation.getFormattedTime()).isEqualTo("05:06:33");
         assertThat(estimation.getSeconds()).isEqualTo(18393);
         assertThat(estimation.getDistance()).isEqualTo(72.60);
-        assertThat(estimation.toString()).isEqualTo(String.format("Estimated distance - %.2f, time - 05:06:33", 72.60));
+        assertThat(estimation).hasToString(String.format("Estimated distance - %.2f, time - 05:06:33", 72.60));
     }
 
 }

@@ -1,13 +1,41 @@
 [![Build Status](https://travis-ci.org/sandlex/runcalc.svg?branch=master)](https://travis-ci.org/sandlex/runcalc)
 [![Coverage Status](http://img.shields.io/coveralls/sandlex/runcalc/master.svg?style=flat-square)](https://coveralls.io/r/sandlex/runcalc?branch=master)
 
-### Jack Daniels' Running Formula calculator
-Input parameters:
- - comma-separated string with values of paces in min/km of following format: **E=4:45,L=4:45,M=4:14,T=4:00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20**
- - training session schema in following formats:
-  - template: **L = lesser of 15 miles (24 km) & 100 min**
-  - flexible format, e.g.: **2E + 3 x 1T w/2 min rest + 3 x 3 min H w/2 min jg + 4 x 200 R w/200 jg + 1E**. Numbers less than 100 are given in miles (2E, 1T, etc.), larger than 100 are given in meters (200R, 400 jg, etc.)
- 
-Output:
- - training session duration in format: hh:mm:ss
- - training session distance in kilometers
+### Running workout calculator
+Calculates estimated distance and completion time of pace based workouts.
+
+Imagine you have to do a training according to the following schema:
+**15 minutes warming up, then 3 kilometers in 10 km pace, then 5 times of 400 meters in 5 km pace followed by 30 seconds rest, after 5 repetitions do 1.5 km in easy pace and then 1.5 hours in marathon pace.**
+
+To calculate this program should get two input parameters:
+1. pace block: _WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00_
+2. workout schema: _15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M_
+
+After calculation result can be used in following format:
+1. distance in kilometers/miles: _33.00_
+2. time as number of seconds: _8340_
+3. time as formatted string: _02:19:00_
+4. everything together as a string in the format: _Estimated distance - 33.00, time - 02:19:00_
+
+Notes:
+* Pace name can't start with a number: T10 - ok, 10T - not ok
+* Nested repetitions are not supported
+
+### Usage
+#### As a library
+* add jar file to the classpath
+
+```java
+Estimation estimation = Calculator.getEstimation("WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00", "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M");
+
+double distance = estimation.getDistance();
+long seconds = estimation.getSeconds();
+String time = estimation.getFormattedTime();
+String result = estimation.toString();
+```
+
+#### As a java app
+`java -jar runcalc-xxx.jar`
+with two arguments:
+1. _WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00_
+2. _15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M_

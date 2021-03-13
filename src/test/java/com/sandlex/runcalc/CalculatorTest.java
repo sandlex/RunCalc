@@ -8,10 +8,12 @@ class CalculatorTest {
 
     @Test
     void shouldCalculate() {
-        Estimation estimation = Calculator.getEstimation("E=4:30,M=4:09", "2.2E + 1:32:17M");
+        Estimation estimation = Calculator.getEstimation("WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00", "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M");
 
-        assertThat(estimation.getDistance()).isEqualTo(24.20);
-        assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
+        assertThat(estimation.getDistance()).isEqualTo(33.00);
+        assertThat(estimation.getSeconds()).isEqualTo(8340);
+        assertThat(estimation.getFormattedTime()).isEqualTo("02:19:00");
+        assertThat(estimation).hasToString(String.format("Estimated distance - %.2f, time - 02:19:00", 33.00));
     }
 
 /*

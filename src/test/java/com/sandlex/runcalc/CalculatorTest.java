@@ -1,16 +1,17 @@
 package com.sandlex.runcalc;
 
-import org.assertj.core.api.Java6Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CalculatorTest {
 
     @Test
     void shouldCalculate() {
-        Estimation estimation = Calculator.getEstimation("E=4:30,M=4:09", "2.2E + 1:32:17M", "");
+        Estimation estimation = Calculator.getEstimation("E=4:30,M=4:09", "2.2E + 1:32:17M");
 
-        Java6Assertions.assertThat(estimation.getKilometers()).isEqualTo(24.20);
-        Java6Assertions.assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
+        assertThat(estimation.getDistance()).isEqualTo(24.20);
+        assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
     }
 
 /*

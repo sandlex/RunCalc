@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toMap;
 @UtilityClass
 class Solver {
 
-    Estimation solve(PaceBlock paceBlock, Schema schema, Distance.System system) {
+    Estimation solve(PaceBlock paceBlock, Schema schema) {
         Map<PaceName, PaceValue> paces = paceBlock.getPaces().stream().collect(toMap(Pace::getPaceName, Pace::getPaceValue));
 
         schema.getPhases().forEach(calculable -> Solver.validate(paces, calculable));
@@ -48,22 +48,22 @@ class Solver {
             Phase phase = (Phase) calculable;
             Measure measure = phase.getMeasure();
             if (measure instanceof Distance) {
-                double kilometers = ((Distance) measure).getKilometers(Distance.System.METRIC);
-                estimation.addKilometers(kilometers);
+                double distance = ((Distance) measure).getValue();
+                estimation.addDistance(distance);
                 PaceValue paceValue = paces.get(phase.getPaceName());
-                estimation.addSeconds(Math.round(kilometers * paceValue.getInSeconds()));
+                estimation.addSeconds(Math.round(distance * paceValue.getInSeconds()));
             } else if (measure instanceof Duration) {
                 int seconds = ((Duration) measure).getInSeconds();
                 estimation.addSeconds(seconds);
                 PaceValue paceValue = paces.get(phase.getPaceName());
-                estimation.addKilometers(seconds / paceValue.getInSeconds());
+                estimation.addDistance(seconds / paceValue.getInSeconds());
             }
         } else if (calculable instanceof Repetition) {
             Repetition repetition = (Repetition) calculable;
             Estimation repetitionEstimation = new Estimation();
             repetition.getPhases().forEach(rep -> Solver.calculate(paces, rep, repetitionEstimation));
-            estimation.addKilometers(repetitionEstimation.getKilometers() * repetition.getRepetitionCount().getValue());
-            estimation.addSeconds(repetitionEstimation.getSeconds() * repetition.getRepetitionCount().getValue());
+            estimation.addDistance(repetitionEstimation.distance * repetition.getRepetitionCount().getValue());
+            estimation.addSeconds(repetitionEstimation.seconds * repetition.getRepetitionCount().getValue());
         }
     }
 

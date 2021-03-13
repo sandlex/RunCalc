@@ -1,7 +1,6 @@
 package com.sandlex.runcalc;
 
 import com.sandlex.runcalc.model.PaceBlock;
-import com.sandlex.runcalc.model.Distance;
 import com.sandlex.runcalc.model.Schema;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,19 +18,30 @@ class SolverTest {
         Schema schema = new Schema(schemaInput);
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Solver.solve(paceBlock, schema, Distance.System.METRIC))
+                .isThrownBy(() -> Solver.solve(paceBlock, schema))
                 .withMessage("Unknown pace: M");
     }
 
     @Test
-    void shouldCalculate() {
-        PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
-        Schema schema = new Schema("2.2E + 1:32:17M");
+    void shouldCalculateMetricMarathon() {
+        PaceBlock paceBlock = new PaceBlock("M=4:00,MM=4:00");
+        Schema schema = new Schema("42.2M");
 
-        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+        Estimation estimation = Solver.solve(paceBlock, schema);
 
-        assertThat(estimation.getKilometers()).isEqualTo(24.20);
-        assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
+        assertThat(estimation.getDistance()).isEqualTo(42.2);
+        assertThat(estimation.getFormattedTime()).isEqualTo("02:48:48");
+    }
+
+    @Test
+    void shouldCalculateImperialMarathon() {
+        PaceBlock paceBlock = new PaceBlock("M=6:00,MM=6:00");
+        Schema schema = new Schema("26.22M");
+
+        Estimation estimation = Solver.solve(paceBlock, schema);
+
+        assertThat(estimation.getDistance()).isEqualTo(26.22);
+        assertThat(estimation.getFormattedTime()).isEqualTo("02:37:19");
     }
 
     @Test
@@ -39,9 +49,9 @@ class SolverTest {
         PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
         Schema schema = new Schema("2 * (2.2E + 1:32:17M)");
 
-        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+        Estimation estimation = Solver.solve(paceBlock, schema);
 
-        assertThat(estimation.getKilometers()).isEqualTo(48.40);
+        assertThat(estimation.getDistance()).isEqualTo(48.40);
         assertThat(estimation.getFormattedTime()).isEqualTo("03:24:22");
     }
 
@@ -50,14 +60,12 @@ class SolverTest {
         PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
         Schema schema = new Schema("2.2E + 1:32:17M + 2 * (2.2E + 1:32:17M)");
 
-        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+        Estimation estimation = Solver.solve(paceBlock, schema);
 
-        assertThat(estimation.getKilometers()).isEqualTo(72.60);
         assertThat(estimation.getFormattedTime()).isEqualTo("05:06:33");
         assertThat(estimation.getSeconds()).isEqualTo(18393);
-        assertThat(estimation.getTimeInSeconds()).isEqualTo(18393);
-        assertThat(estimation.getDistanceInUnits()).isEqualTo(72.60);
-        assertThat(estimation.toString()).isEqualTo(String.format("Estimated distance - %.2f%s, time - 05:06:33", 72.60, "km"));
+        assertThat(estimation.getDistance()).isEqualTo(72.60);
+        assertThat(estimation.toString()).isEqualTo(String.format("Estimated distance - %.2f, time - 05:06:33", 72.60));
     }
 
 }

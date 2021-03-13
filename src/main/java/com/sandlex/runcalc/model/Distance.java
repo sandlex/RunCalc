@@ -1,20 +1,13 @@
 package com.sandlex.runcalc.model;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
+@Value
 public class Distance implements Measure {
 
-    @RequiredArgsConstructor
-    public enum System {
-        METRIC(1),
-        IMPERIAL(1.6);
+    double value;
 
-        private final double ratio;
-    }
-
-    private final double kilometers;
-
-    Distance(System system, String input) {
+    Distance(String input) {
         double distance;
         try {
             distance = Double.parseDouble(input);
@@ -26,10 +19,7 @@ public class Distance implements Measure {
             throw new IllegalArgumentException("Distance must be a positive value");
         }
 
-        kilometers = distance * system.ratio;
+        value = distance;
     }
 
-    public double getKilometers(System system) {
-        return kilometers * system.ratio;
-    }
 }

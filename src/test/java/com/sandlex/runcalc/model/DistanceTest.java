@@ -10,29 +10,22 @@ class DistanceTest {
     @Test
     void shouldHandleNonNumericValue() {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new Distance(Distance.System.METRIC, "1km"))
+                .isThrownBy(() -> new Distance("1km"))
                 .withMessage("Distance must be a number");
     }
 
     @Test
     void shouldHandleNegativeValue() {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new Distance(Distance.System.METRIC, "-42"))
+                .isThrownBy(() -> new Distance("-42"))
                 .withMessage("Distance must be a positive value");
     }
 
     @Test
-    void shouldParseMetricAndGetImperialValue() {
-        Distance distance = new Distance(Distance.System.METRIC, "10.6");
+    void shouldParse() {
+        Distance distance = new Distance("10.6");
 
-        assertThat(distance.getKilometers(Distance.System.IMPERIAL)).isEqualTo(16.96);
-    }
-
-    @Test
-    void shouldParseImperialAndGetMetricValue() {
-        Distance distance = new Distance(Distance.System.IMPERIAL, "10");
-
-        assertThat(distance.getKilometers(Distance.System.METRIC)).isEqualTo(16);
+        assertThat(distance.getValue()).isEqualTo(10.6);
     }
 
 }

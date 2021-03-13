@@ -8,25 +8,25 @@ class PhaseTest {
 
     @Test
     void shouldCreateDistancePhase() {
-        Phase phase = new Phase("2.5T10", Distance.System.METRIC);
+        Phase phase = new Phase("2.5T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getKilometers(Distance.System.METRIC)).isEqualTo(2.5);
+        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(2.5);
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 
     @Test
     void shouldCreateRoundDistancePhase() {
-        Phase phase = new Phase("25T10", Distance.System.METRIC);
+        Phase phase = new Phase("25T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getKilometers(Distance.System.METRIC)).isEqualTo(25);
+        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(25);
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 
     @Test
     void shouldCreateDurationPhase() {
-        Phase phase = new Phase("01:30:00T10", Distance.System.METRIC);
+        Phase phase = new Phase("01:30:00T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Duration.class);
         assertThat(((Duration) phase.getMeasure()).getHours()).isEqualTo(1);
@@ -37,7 +37,7 @@ class PhaseTest {
 
     @Test
     void shouldCreateShortDurationPhase() {
-        Phase phase = new Phase("30:00T10", Distance.System.METRIC);
+        Phase phase = new Phase("30:00T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Duration.class);
         assertThat(((Duration) phase.getMeasure()).getHours()).isZero();

@@ -32,7 +32,7 @@ public class Repetition implements Calculable {
         input = StringUtils.remove(input, "(");
         input = StringUtils.remove(input, ")");
         return Arrays.stream(input.split("\\+"))
-                .map(str -> new Phase(str, Distance.System.METRIC))
+                .map(Phase::new)
                 .collect(Collectors.toList());
     }
 

@@ -9,7 +9,7 @@ public class Phase implements Calculable {
     Measure measure;
     PaceName paceName;
 
-    public Phase(String input, Distance.System system) {
+    public Phase(String input) {
         boolean isDurationMeasure = input.contains(":");
 
         String phase = StringUtils.remove(input, ".");
@@ -24,7 +24,7 @@ public class Phase implements Calculable {
         paceName = new PaceName(paceNameInput);
         int paceNameLength = paceNameInput.length();
         String originalMeasureInput = input.substring(0, input.length() - paceNameLength);
-        measure = isDurationMeasure ? new Duration(originalMeasureInput) : new Distance(system, originalMeasureInput);
+        measure = isDurationMeasure ? new Duration(originalMeasureInput) : new Distance(originalMeasureInput);
     }
 
 }

@@ -1,22 +1,24 @@
 package com.sandlex.runcalc;
 
-import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.TimeUnit;
 
-@Getter(AccessLevel.PACKAGE)
+@RequiredArgsConstructor
 public class Estimation {
 
-    private long seconds;
-    private double kilometers;
+    @Getter
+    long seconds;
+    @Getter
+    double distance;
 
     void addSeconds(long increment) {
         this.seconds += increment;
     }
 
-    void addKilometers(double increment) {
-        this.kilometers += increment;
+    void addDistance(double increment) {
+        this.distance += increment;
     }
 
     public String getFormattedTime() {
@@ -29,16 +31,8 @@ public class Estimation {
         return String.format("%02d:%02d:%02d", hours, minutes, sec);
     }
 
-    public long getTimeInSeconds() {
-        return seconds;
-    }
-
-    public double getDistanceInUnits() {
-        return kilometers;
-    }
-
     @Override
     public String toString() {
-        return String.format("Estimated distance - %.2f%s, time - %s", kilometers, "km", getFormattedTime());
+        return String.format("Estimated distance - %.2f, time - %s", distance, getFormattedTime());
     }
 }

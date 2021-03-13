@@ -28,7 +28,7 @@ public class Schema {
                     if (isRepetition(str)) {
                         return new Repetition(str);
                     }
-                    return new Phase(str, Distance.System.METRIC);
+                    return new Phase(str);
                 })
                 .collect(Collectors.toList());
     }

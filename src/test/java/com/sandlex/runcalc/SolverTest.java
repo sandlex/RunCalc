@@ -24,7 +24,7 @@ class SolverTest {
 
     @Test
     void shouldCalculateMetricMarathon() {
-        PaceBlock paceBlock = new PaceBlock("M=4:00,MM=4:00");
+        PaceBlock paceBlock = new PaceBlock("M=4:00");
         Schema schema = new Schema("42.2M");
 
         Estimation estimation = Solver.solve(paceBlock, schema);
@@ -35,7 +35,7 @@ class SolverTest {
 
     @Test
     void shouldCalculateImperialMarathon() {
-        PaceBlock paceBlock = new PaceBlock("M=6:00,MM=6:00");
+        PaceBlock paceBlock = new PaceBlock("M=6:00");
         Schema schema = new Schema("26.22M");
 
         Estimation estimation = Solver.solve(paceBlock, schema);

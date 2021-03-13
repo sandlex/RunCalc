@@ -8,10 +8,10 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class PaceBlockTest {
 
     @Test
-    void shouldHandleIncorrectFormat() {
+    void shouldHandleBlankInput() {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new PaceBlock("T10=03:33;HM=03:37"))
-                .withMessage("Cannot parse pace block: T10=03:33;HM=03:37. Expected format: pace1=mm:ss,pace2=mm:ss");
+                .isThrownBy(() -> new PaceBlock(""))
+                .withMessage("Pace block can't be empty. Expected format: pace1=mm:ss,pace2=mm:ss");
     }
 
     @Test
@@ -33,6 +33,13 @@ class PaceBlockTest {
         PaceBlock paceBlock = new PaceBlock("T10=03:33,HM=03:37");
 
         assertThat(paceBlock.getPaces()).hasSize(2);
+    }
+
+    @Test
+    void shouldCreatePaceBlockFromOne() {
+        PaceBlock paceBlock = new PaceBlock("T10=03:33");
+
+        assertThat(paceBlock.getPaces()).hasSize(1);
     }
 
 }

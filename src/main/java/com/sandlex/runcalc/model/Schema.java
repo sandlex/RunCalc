@@ -15,6 +15,7 @@ public class Schema {
 
     public Schema(String input) {
         String schema = StringUtils.deleteWhitespace(input);
+        //can't be empty
         // Following things should be done outside of this class
         SchemaParser.checkNestedRoundBrackets(schema);
 

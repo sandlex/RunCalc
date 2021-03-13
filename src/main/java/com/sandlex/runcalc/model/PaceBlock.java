@@ -1,6 +1,7 @@
 package com.sandlex.runcalc.model;
 
 import lombok.Value;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,12 +17,18 @@ public class PaceBlock {
     List<Pace> paces;
 
     public PaceBlock(String input) {
-        if (!input.contains(SEPARATOR)) {
-            throw new IllegalArgumentException("Cannot parse pace block: " + input + ". Expected format: " + FORMAT);
+        if (StringUtils.isBlank(input)) {
+            throw new IllegalArgumentException("Pace block can't be empty. Expected format: " + FORMAT);
         }
 
         paces = new ArrayList<>();
-        String[] parts = input.split(SEPARATOR);
+        String[] parts;
+        if (input.contains(SEPARATOR)) {
+            parts = input.split(SEPARATOR);
+        } else {
+            parts = new String[]{input};
+        }
+
         if (parts.length == 0) {
             throw new IllegalArgumentException("Paces block doesn't contain any values. Expected format: " + FORMAT);
         }

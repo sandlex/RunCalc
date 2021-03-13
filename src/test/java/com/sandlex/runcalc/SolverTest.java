@@ -45,4 +45,19 @@ class SolverTest {
         assertThat(estimation.getFormattedTime()).isEqualTo("03:24:22");
     }
 
+    @Test
+    void shouldCalculateCombination() {
+        PaceBlock paceBlock = new PaceBlock("E=4:30,M=4:09");
+        Schema schema = new Schema("2.2E + 1:32:17M + 2 * (2.2E + 1:32:17M)");
+
+        Estimation estimation = Solver.solve(paceBlock, schema, Distance.System.METRIC);
+
+        assertThat(estimation.getKilometers()).isEqualTo(72.60);
+        assertThat(estimation.getFormattedTime()).isEqualTo("05:06:33");
+        assertThat(estimation.getSeconds()).isEqualTo(18393);
+        assertThat(estimation.getTimeInSeconds()).isEqualTo(18393);
+        assertThat(estimation.getDistanceInUnits()).isEqualTo(72.60);
+        assertThat(estimation.toString()).isEqualTo(String.format("Estimated distance - %.2f%s, time - 05:06:33", 72.60, "km"));
+    }
+
 }

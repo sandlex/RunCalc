@@ -20,12 +20,13 @@ public class Estimation {
     }
 
     public String getFormattedTime() {
-        long hours = TimeUnit.SECONDS.toHours(seconds);
-        seconds -= TimeUnit.HOURS.toSeconds(hours);
-        long minutes = TimeUnit.SECONDS.toMinutes(seconds);
-        seconds -= TimeUnit.MINUTES.toSeconds(minutes);
+        long sec = seconds;
+        long hours = TimeUnit.SECONDS.toHours(sec);
+        sec -= TimeUnit.HOURS.toSeconds(hours);
+        long minutes = TimeUnit.SECONDS.toMinutes(sec);
+        sec -= TimeUnit.MINUTES.toSeconds(minutes);
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%02d:%02d:%02d", hours, minutes, sec);
     }
 
     public long getTimeInSeconds() {

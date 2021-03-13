@@ -1,13 +1,18 @@
 package com.sandlex.runcalc;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.within;
+import org.assertj.core.api.Java6Assertions;
+import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.List;
+class CalculatorTest {
 
-public class CalculatorTest {
+    @Test
+    void shouldCalculate() {
+        Estimation estimation = Calculator.getEstimation("E=4:30,M=4:09", "2.2E + 1:32:17M", "");
+
+        Java6Assertions.assertThat(estimation.getKilometers()).isEqualTo(24.20);
+        Java6Assertions.assertThat(estimation.getFormattedTime()).isEqualTo("01:42:11");
+    }
+
 /*
     private static final String SCHEMA1 = "2E + 3 x 1T w/2 min rest + 3 x 3 min H w/2 min jg + 4 x 200 R w/200 jg + 1E";
     private static final String SCHEMA2 = "L = lesser of 15 miles (24 km) & 100 min";

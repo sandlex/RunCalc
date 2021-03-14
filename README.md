@@ -12,7 +12,7 @@ To calculate this program should get two input parameters:
 2. workout schema: _15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M_
 
 After calculation result can be used in following format:
-1. distance in kilometers/miles: _33.00_
+1. distance in kilometers (or miles): _33.00_
 2. time as number of seconds: _8340_
 3. time as formatted string: _02:19:00_
 4. everything together as a string in the format: _Estimated distance - 33.00, time - 02:19:00_
@@ -20,6 +20,9 @@ After calculation result can be used in following format:
 Notes:
 * Pace name can't start with a number: T10 - ok, 10T - not ok
 * Nested repetitions are not supported
+* Time format - hh:mm:ss or mm:ss
+* If distance is given in miles then pace is assumed to be in min/mile. If distance is in kilometers then pace is in min/km
+* Mind the difference between imperial and metric systems when working with short intervals (fraction of kilometers/miles): 0.4 is 400 meters in metric system. In imperial system 0.4 will have a different meaning
 
 ### Usage
 #### As a library

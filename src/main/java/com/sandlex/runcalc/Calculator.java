@@ -5,8 +5,22 @@ import com.sandlex.runcalc.model.Schema;
 
 public class Calculator {
 
-    public static Estimation getEstimation(String paces, String schema) {
-        return Solver.solve(new PaceBlock(paces), new Schema(schema));
+    public static Estimation getEstimation(String pacesInput, String schemaInput) throws InvalidPaceBlockException, InvalidSchemaException {
+        PaceBlock paceBlock;
+        try {
+            paceBlock = new PaceBlock(pacesInput);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidPaceBlockException("Incorrect pace block: " + e.getMessage());
+        }
+
+        Schema schema;
+        try {
+            schema = new Schema(schemaInput);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidSchemaException("Incorrect schema: " + e.getMessage());
+        }
+
+        return Solver.solve(paceBlock, schema);
     }
 
     public static void main(String[] args) {
@@ -17,7 +31,11 @@ public class Calculator {
             System.exit(1);
         }
 
-        System.out.println(Calculator.getEstimation(args[0], args[1]));
+        try {
+            System.out.println(Calculator.getEstimation(args[0], args[1]));
+        } catch (InvalidPaceBlockException | InvalidSchemaException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

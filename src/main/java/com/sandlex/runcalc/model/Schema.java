@@ -15,8 +15,11 @@ public class Schema {
 
     public Schema(String input) {
         String schema = StringUtils.deleteWhitespace(input);
-        //can't be empty
-        // Following things should be done outside of this class
+
+        if (StringUtils.isBlank(input)) {
+            throw new IllegalArgumentException("Schema can't be empty");
+        }
+
         SchemaParser.checkNestedRoundBrackets(schema);
 
         if (!Pattern.matches("^[a-zA-Z0-9()*.:+]+$", schema)) {

@@ -1,12 +1,15 @@
 package com.sandlex.runcalc;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CalculatorTest {
 
     @Test
+    @SneakyThrows
     void shouldCalculate() {
         Estimation estimation = Calculator.getEstimation("WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00", "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M");
 
@@ -14,6 +17,20 @@ class CalculatorTest {
         assertThat(estimation.getSeconds()).isEqualTo(8340);
         assertThat(estimation.getFormattedTime()).isEqualTo("02:19:00");
         assertThat(estimation).hasToString(String.format("Estimated distance - %.2f, time - 02:19:00", 33.00));
+    }
+
+    @Test
+    void shouldThrowInvalidPaceBlockException() {
+        assertThatExceptionOfType(InvalidPaceBlockException.class)
+                .isThrownBy(() -> Calculator.getEstimation("", ""))
+                .withMessage("Incorrect pace block: Pace block can't be empty. Expected format: pace1=mm:ss,pace2=mm:ss");
+    }
+
+    @Test
+    void shouldThrowInvalidSchemaException() {
+        assertThatExceptionOfType(InvalidSchemaException.class)
+                .isThrownBy(() -> Calculator.getEstimation("T10=3:35", ""))
+                .withMessage("Incorrect schema: Schema can't be empty");
     }
 
 /*
@@ -33,97 +50,6 @@ class CalculatorTest {
     private static final String PACES_ERR1 = "E=4:45,L=4:45,M=4:14,T-4:00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20";
     private static final String PACES_ERR2 = "E=4:45,L=4:45,M=4:14,T=4.00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20";
     private static final String PACES_ERR3 = "E=4:4d5,L=4:45,M=4:14,T=4.00,I=3:41,H=3:41,R=3:25,jg=5:00,rest=5:20";
-
-    @Test
-    public void testRebuildPacesErr1() {
-        Activity activity = new Activity(PACES_ERR1, SCHEMA1);
-//        assertThatCode(activity::rebuildPaces).hasMessageContaining("Cannot parse pace: T-4:00");
-    }
-
-    @Test
-    public void testRebuildPacesErr2() {
-        Activity activity = new Activity(PACES_ERR2, SCHEMA1);
-//        assertThatCode(activity::rebuildPaces).hasMessageContaining("Cannot parse pace value: 4.00");
-    }
-
-    @Test
-    public void testRebuildPacesErr3() {
-        Activity activity = new Activity(PACES_ERR3, SCHEMA1);
-//        assertThatCode(activity::rebuildPaces).isInstanceOf(NumberFormatException.class);
-    }
-
-    @Test
-    public void testRebuildPacesSize() {
-        Activity activity = new Activity(PACES, SCHEMA1);
-//        List<Pace> paces = activity.rebuildPaces();
-//        assertThat(paces).hasSize(9);
-    }
-
-    @Test
-    public void testRebuildPacesOrder() {
-        Activity activity = new Activity(PACES, SCHEMA1);
-//        List<Pace> paces = activity.rebuildPaces();
-//        assertThat(paces.get(0).getName()).isEqualTo("rest");
-    }
-
-    @Test
-    public void testRebuildPacesValueInSeconds() {
-        Activity activity = new Activity(PACES, SCHEMA1);
-//        List<Pace> paces = activity.rebuildPaces();
-//        assertThat(paces.get(0).getTime()).isEqualTo(320);
-    }
-
-    @Test
-    public void testRebuildSchema1() {
-        Activity activity = new Activity(PACES, SCHEMA1);
-        Collection<String> parts = activity.rebuildSchema();
-        assertThat(parts).hasSize(22);
-    }
-
-    public void testRebuildSchema2() {
-        Activity activity = new Activity(PACES, SCHEMA2);
-        Collection<String> parts = activity.rebuildSchema();
-        assertThat(parts).hasSize(22);
-    }
-
-    @Test
-    public void testRebuildSchema3() {
-        Activity activity = new Activity(PACES, SCHEMA3);
-        Collection<String> parts = activity.rebuildSchema();
-        assertThat(parts).hasSize(2);
-    }
-
-    @Test
-    public void testRebuildSchema4() {
-        Activity activity = new Activity(PACES, SCHEMA4);
-        Collection<String> parts = activity.rebuildSchema();
-        assertThat(parts).hasSize(5);
-    }
-
-    @Test
-    public void testRebuildSchema5() {
-        Activity activity = new Activity(PACES, SCHEMA5);
-        Collection<String> parts = activity.rebuildSchema();
-        assertThat(parts).hasSize(23);
-    }
-
-    @Test
-    public void testCalculateErr1() {
-        Activity activity = new Activity(PACES, SCHEMA_ERR1);
-        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse time value: 3O");
-    }
-
-    @Test
-    public void testCalculateErr2() {
-        Activity activity = new Activity(PACES, SCHEMA_ERR2);
-        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse distance value: 1O");
-    }
-
-    @Test
-    public void testCalculateErr3() {
-        Activity activity = new Activity(PACES, SCHEMA_ERR3);
-        assertThatCode(activity::calculate).hasMessageContaining("Cannot determine pace of: 400 jog");
-    }
 
     @Test
     public void testCalculate1() {
@@ -162,18 +88,6 @@ class CalculatorTest {
         Target target = activity.calculate();
         assertThat(target.getTime()).isEqualTo("01:35:40");
         assertThat(target.getDistance()).isEqualTo(22.11f, within(0.1f));
-    }
-
-    @Test
-    public void testCalculateLesserErr1() {
-        Activity activity = new Activity(PACES, SCHEMA_ERR4);
-        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse distance value: 2O");
-    }
-
-    @Test
-    public void testCalculateLesserErr2() {
-        Activity activity = new Activity(PACES, SCHEMA_ERR5);
-        assertThatCode(activity::calculate).hasMessageContaining("Cannot parse time value: 1O0");
     }
 
     @Test

@@ -9,6 +9,13 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 class SchemaTest {
 
+    @Test
+    void shouldHandleEmptySchema() {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new Schema(""))
+                .withMessage("Schema can't be empty");
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"1,0T", "T=10", "T;10"})
     void shouldDetectRestrictedCharacters(String input) {

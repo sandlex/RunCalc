@@ -2,20 +2,22 @@ package com.sandlex.runcalc.model;
 
 import lombok.Value;
 
+import java.math.BigDecimal;
+
 @Value
 public class Distance implements Measure {
 
-    double value;
+    BigDecimal value;
 
     Distance(String input) {
-        double distance;
+        BigDecimal distance;
         try {
-            distance = Double.parseDouble(input);
+            distance = new BigDecimal(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Distance must be a number");
         }
 
-        if (distance <= 0) {
+        if (distance.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Distance must be a positive value");
         }
 

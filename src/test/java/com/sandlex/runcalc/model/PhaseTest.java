@@ -2,6 +2,8 @@ package com.sandlex.runcalc.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class PhaseTest {
@@ -11,7 +13,7 @@ class PhaseTest {
         Phase phase = new Phase("2.5T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(2.5);
+        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(BigDecimal.valueOf(2.5));
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 
@@ -20,7 +22,7 @@ class PhaseTest {
         Phase phase = new Phase("25T10");
 
         assertThat(phase.getMeasure()).isInstanceOf(Distance.class);
-        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(25);
+        assertThat(((Distance) phase.getMeasure()).getValue()).isEqualTo(BigDecimal.valueOf(25));
         assertThat(phase.getPaceName().getValue()).isEqualTo("T10");
     }
 

@@ -3,6 +3,8 @@ package com.sandlex.runcalc;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -12,11 +14,10 @@ class CalculatorTest {
     @SneakyThrows
     void shouldCalculate() {
         Estimation estimation = Calculator.getEstimation("WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00", "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M");
-
-        assertThat(estimation.getDistance()).isEqualTo(33.00);
+        assertThat(estimation.getDistance()).isEqualTo(new BigDecimal("33.750"));
         assertThat(estimation.getSeconds()).isEqualTo(8340);
         assertThat(estimation.getFormattedTime()).isEqualTo("02:19:00");
-        assertThat(estimation).hasToString(String.format("Estimated distance - %.2f, time - 02:19:00", 33.00));
+        assertThat(estimation).hasToString(String.format("Estimated distance - %.3f, time - 02:19:00", 33.750));
     }
 
     @Test

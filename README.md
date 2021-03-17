@@ -46,10 +46,11 @@ String result = estimation.toString(); //format: "Estimated distance - %.3f, tim
 
 #### As a java app
 * make sure you have jdk installed in your system
-* download executable jar `runcalc-xxx-jar-with-dependencies.jar` and run with two arguments:
-
+* download executable jar `runcalc-xxx-jar-with-dependencies.jar` and run application from a command line with two arguments:
 ```java
 java -jar runcalc-2.0-SNAPSHOT-jar-with-dependencies.jar "WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00" "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M"
-
+```
+* result will be printed out as follows:
+```java
 Estimated distance - 33,750, time - 02:19:00
 ```

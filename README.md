@@ -25,8 +25,15 @@ Notes:
 * Mind the difference between imperial and metric systems when working with short intervals (fraction of kilometers/miles): 0.4 is 400 meters in metric system. In imperial system 0.4 will have a different meaning
 
 ### Usage
+Library is distributed as two jar files:
+* thin jar `runcalc-xxx.jar` which can be used as a library in your project
+* fat jar `runcalc-xxx-jar-with-dependencies.jar` which can be executed as a standalone Java application
+
 #### As a library
-* add jar file to the classpath
+* `runcalc` requires `commons-lang` as a dependency so:
+    * if your project already uses `commons-lang` as a dependency you can download and add jar file `runcalc-xxx.jar` to the classpath of your project
+    * if your project is not dependent on `commons-lang` then download and add jar file `runcalc-xxx-jar-with-dependencies.jar` to the classpath of your project, this jar will bring along `commons-lang`
+* library can be used as follows:
 
 ```java
 Estimation estimation = Calculator.getEstimation("WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00", "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M");
@@ -38,7 +45,11 @@ String result = estimation.toString(); //format: "Estimated distance - %.3f, tim
 ```
 
 #### As a java app
-`java -jar runcalc-xxx.jar`
-with two arguments:
-1. _WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00_
-2. _15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M_
+* make sure you have jdk installed in your system
+* download executable jar `runcalc-xxx-jar-with-dependencies.jar` and run with two arguments:
+
+```java
+java -jar runcalc-2.0-SNAPSHOT-jar-with-dependencies.jar "WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00" "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M"
+
+Estimated distance - 33,750, time - 02:19:00
+```

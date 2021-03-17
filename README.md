@@ -25,7 +25,7 @@ Notes:
 * Mind the difference between imperial and metric systems when working with short intervals (fraction of kilometers/miles): 0.4 is 400 meters in metric system. In imperial system 0.4 will have a different meaning
 
 ### Usage
-Library is distributed as two jar files:
+Library is distributed as two jar files which can be downloaded from https://github.com/sandlex/runcalc/releases/latest:
 * thin jar `runcalc-xxx.jar` which can be used as a library in your project
 * fat jar `runcalc-xxx-jar-with-dependencies.jar` which can be executed as a standalone Java application
 
@@ -48,7 +48,7 @@ String result = estimation.toString(); //format: "Estimated distance - %.3f, tim
 * make sure you have jdk installed in your system
 * download executable jar `runcalc-xxx-jar-with-dependencies.jar` and run application from a command line with two arguments:
 ```java
-java -jar runcalc-2.0-SNAPSHOT-jar-with-dependencies.jar "WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00" "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M"
+java -jar runcalc-xxx-jar-with-dependencies.jar "WU=5:00,T10=3:40,E=4:30,T5=3:30,Rest=10:00,M=4:00" "15:00WU + 3T10 + 1.5E + 5 * (0.4T5 + 00:30Rest) + 1.5E + 1:30:00M"
 ```
 * result will be printed out as follows:
 ```java
